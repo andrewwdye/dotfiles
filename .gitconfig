@@ -1,0 +1,60 @@
+[alias]
+	br = branch -v --sort=-committerdate
+	brl = --unset
+	ci = commit
+	clean-br = "! echo 'Prune remote branches...\n' && git fetch -p && echo 'Deleting stale branches...\n' && git branch -vv | grep ': gone]' | awk '{ print $1; }' | xargs -r git branch -D"
+	cp = cherry-pick
+	co = checkout
+	coi = !git checkout $(git branch -v --sort=-committerdate | fzf | xargs | cut -d' ' -f1)
+	ignore = !sh -c \"echo $1 >> .git/info/exclude\"
+	ignored = "!sh -c \"cat .git/info/exclude | egrep -v \\\"(^#.*|^$)\\\"\""
+	last = log -1 HEAD
+	sl = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	st = status
+	uncommit = reset HEAD~
+	unignore = !sh -c \"sed -i .bak \"/^${1}$/d\" .git/info/exclude\"
+	unstage = reset HEAD --
+[user]
+	email = andrewwdye@gmail.com
+	name = Andrew Dye
+[init]
+	templatedir = /Users/andrew/.git-templates
+[advice]
+	addIgnoredFile = false
+[credential]
+	helper = osxkeychain
+[pull]
+	rebase = false
+[push]
+	autoSetupRemote = true
+[submodule]
+	recurse = true
+
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true    # use n and N to move between diff sections
+	light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+        file-decoration-style = cyan ul
+        file-style = cyan
+	hunk-header-decoration-style = cyan box
+        hunk-header-file-style = cyan
+	hunk-header-line-number-style = cyan
+
+
+[merge]
+  conflictstyle = diff3
+
+[diff]
+  colorMoved = default
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[rerere]
+	enabled = true
