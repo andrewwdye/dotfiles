@@ -132,9 +132,8 @@ source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # VSCode
 alias code='open -a "Visual Studio Code"'
 
-# python
-alias python=python3
-alias pip=pip3
+# Aliases
+source $HOME/.bash_aliases
 
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
