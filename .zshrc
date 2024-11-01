@@ -116,7 +116,7 @@ precmd() {
 }
 
 # fzf fuzzy finder
-eval "$(fzf --bash)"
+source <(fzf --zsh)
 
 # zsh-completion
 if type brew &>/dev/null; then
